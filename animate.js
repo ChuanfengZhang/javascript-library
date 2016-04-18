@@ -1,5 +1,5 @@
 // 以下是动画的算法
-var zhufengEffect = {
+var tweenEffect = {
     //当前时间*变化量/持续时间+初始值
     zfLinear: function(t, b, c, d) {
         return c * t / d + b;
@@ -139,7 +139,7 @@ var zhufengEffect = {
     },
     zfBounce: { //指数衰减的反弹缓动。
         easeIn: function(t, b, c, d) {
-            return c - zhufengEffect.zfBounce.easeOut(d - t, 0, c, d) + b;
+            return c - tweenEffect.zfBounce.easeOut(d - t, 0, c, d) + b;
         },
         easeOut: function(t, b, c, d) {
             if ((t /= d) < (1 / 2.75)) {
@@ -153,8 +153,8 @@ var zhufengEffect = {
             }
         },
         easeInOut: function(t, b, c, d) {
-            if (t < d / 2) return zhufengEffect.zfBounce.easeIn(t * 2, 0, c, d) * .5 + b;
-            else return zhufengEffect.zfBounce.easeOut(t * 2 - d, 0, c, d) * .5 + c * .5 + b;
+            if (t < d / 2) return tweenEffect.zfBounce.easeIn(t * 2, 0, c, d) * .5 + b;
+            else return tweenEffect.zfBounce.easeOut(t * 2 - d, 0, c, d) * .5 + c * .5 + b;
         }
     }
 }
@@ -178,7 +178,7 @@ var zhufengEffect = {
  * @param callback {Function} 动画完成后执行的回调函数
  */
 function animate(ele, obj, duration, effect, callback) {
-    var fnEffect = zhufengEffect.Expo.easeOut; //默认以这个为效果
+    var fnEffect = tweenEffect.Expo.easeOut; //默认以这个为效果
 
     // 如果用户指定其他效果，在依照指定的数字或其他值来修改
     if (typeof effect == "number") {
@@ -186,16 +186,16 @@ function animate(ele, obj, duration, effect, callback) {
             case 0:
                 break;
             case 1:
-                fnEffect = zhufengEffect.zfLinear;
+                fnEffect = tweenEffect.zfLinear;
                 break;
             case 2:
-                fnEffect = zhufengEffect.Back.easeOut;
+                fnEffect = tweenEffect.Back.easeOut;
                 break;
             case 3:
-                fnEffect = zhufengEffect.Elastic.easeOut;
+                fnEffect = tweenEffect.Elastic.easeOut;
                 break;
             case 4:
-                fnEffect = zhufengEffect.zfBounce.eaeaseOut;
+                fnEffect = tweenEffect.zfBounce.eaeaseOut;
                 break;
         }
     } else if (typeof effect == "function") {
